@@ -13,8 +13,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
+model Usuario {
   id Int @id @default(autoincrement())
-  email String
+  email String @unique
   senha String
 }
