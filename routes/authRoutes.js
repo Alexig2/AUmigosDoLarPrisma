@@ -3,6 +3,8 @@ const router = express.Router();
 
 const AuthController = require("../controllers/AuthController");
 
+router.get("/", AuthController.login);
+
 router.get("/login", AuthController.login);
 router.post("/login", AuthController.loginPost);
 

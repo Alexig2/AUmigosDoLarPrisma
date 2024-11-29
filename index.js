@@ -27,7 +27,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new FileStore({
-      logFn: function () {},
+      logFn: function () { },
       path: require("path").join(__dirname, "sessions"),
     }),
     cookie: {
@@ -39,7 +39,7 @@ app.use(
 );
 
 // O "AuthController.makeAuthMiddleware" faz com que a página home só possa ser acessada caso o usuário esteja logado.
-app.get("/", AuthController.makeAuthMiddleware, async (req, res) => {
+app.get("/dashboard", AuthController.makeAuthMiddleware, async (req, res) => {
   const usuario = await prisma.usuario.findUnique({
     where: {
       id: req.session.userId,
@@ -48,6 +48,11 @@ app.get("/", AuthController.makeAuthMiddleware, async (req, res) => {
 
   res.render("home", { usuario });
 });
+
+app.get("/", async (req, res) => {
+  res.render("home");
+});
+
 
 app.use("/auth/", authRoutes);
 
